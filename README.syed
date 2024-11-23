@@ -1,6 +1,6 @@
 README for OpenSupports Deployment using Terraform and Jenkins
 OpenSupports Deployment Project
-This project provisions infrastructure and deploys the OpenSupports application, an open-source ticketing system, using Terraform for infrastructure as code and Jenkins for CI/CD pipeline automation.
+This project provisions infrastructure and deploys the OpenSupports application, an open-source using Terraform for infrastructure as code and Jenkins for CI/CD pipeline automation.
 
 The project includes security best practices, cost optimizations, and uses AWS services like EC2, RDS, S3, and IAM.
 
@@ -13,11 +13,12 @@ Setup Instructions
 Step 1: Clone Repository
 Step 2: Configure Terraform
 Step 3: Apply Terraform
-Step 4: Configure Jenkins Pipeline
+step 4: Docker Container/image
+Step 5: Configure Jenkins Pipeline
 
-Best Practices Implemented
-Cost Optimization Recommendations
-How to Promote Application Across Environments
+
+Cost Optimization:-
+Promote Application Across Environments
 Project Structure
 opensupports/
 ├── terraform/
@@ -26,10 +27,11 @@ opensupports/
 │   ├── outputs.tf     # Outputs from Terraform resources
 ├── Jenkinsfile        # Jenkins pipeline configuration
 ├── README.syed          # Project documentation
+
 Prerequisites
 AWS CLI installed and configured with access keys and a default region.
 Terraform installed on the machine.
-Jenkins installed and running on an EC2 instance or a local machine.
+Jenkins installed and running on an EC2 instance I use Ubuntu.
 An AWS account with sufficient permissions to create resources (EC2, S3, RDS, IAM, etc.).
 SSH Key Pair for accessing EC2 instances.
 Infrastructure Components
@@ -39,6 +41,7 @@ RDS (MySQL): Stores the application database with encryption at rest.
 S3: Manages static file storage with versioning and encryption enabled.
 IAM Roles: Ensures least privilege access for EC2 and other AWS services.
 CloudWatch: Logs and monitors infrastructure for performance and issues.
+
 Setup Instructions
 Step 1: Clone Repository
 git clone https://github.com/syedAWS123UK/opensupports.git
@@ -79,6 +82,7 @@ Versioning:
 S3 bucket versioning is enabled to track and preserve file versions.
 Isolation of Environments:
 Separate infrastructure is provisioned for development, staging, and production environments.
+
 Cost Optimization Recommendations
 Use Auto Scaling Groups:
 Configure Auto Scaling Groups for EC2 instances to adjust capacity based on demand.
@@ -86,10 +90,13 @@ Use Spot Instances:
 For non-production environments, consider Spot Instances to reduce costs.
 Enable RDS Read Replicas:
 Offload read-heavy operations from the primary RDS instance.
+
 How to Promote Application Across Environments
 Development:
 Deploy the application to the development environment first and test its functionality.
+
 Staging:
 Once validated, promote the application to staging using the Jenkins pipeline.
+
 Production:
 After successful testing in staging, promote the application to production.
