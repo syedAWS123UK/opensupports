@@ -98,4 +98,45 @@ resource "aws_instance" "opensupports" {
   tags = {
     Name = "opensupports-instance"
   }
+
+# Cloud Watch Log Groups
+resource "aws_cloudwatch_log_group" "opensupports_logs" {
+    name              = "opensupports-logs"
+    retention_in_days = 7
+}
+
+# ADD Cloud Watch Alrams for EC2 Instances
+resource "aws_cloudwatch_metric_alarm" "high_cpu" {
+    alarm_name          = "HighCPUUtilization"
+    comparison_operator = "GreaterThanThreshold"
+    evaluation_periods  = 2
+    metric_name         = "CPUUtilization"
+    namespace           = "AWS/EC2"
+    period              = 60
+    statistic           = "Average"
+    threshold           = 80
+
+    dimensions = {
+        InstanceId = aws_instance.opensupports.id
+    }
+
+    alarm_actions = [aws_sns_topic.alerts.arn]
+}
+
+# ADD Cloud Watch Dashboard
+resource "aws_cloudwatch_dashboard" "opensupports_dashboard" {
+    dashboard_name = "opensupports_dashboard"
+    dashboard_body = jsonencode({
+        widgets = [
+            {
+                type = "metric",
+                properties = {
+                    metrics = [
+                        ["AWS/EC2", "CPUUtilization", "i-09d6850b97fe35d6e", aws_instance.opensupports.id]
+                    ]
+                    title = "CPU Utilization"
+                }
+            }
+        ]
+    })
 }
