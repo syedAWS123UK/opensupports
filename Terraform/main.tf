@@ -74,7 +74,28 @@ resource "aws_db_instance" "opensupports_db" {
   username             = "admin"
   password             = "securepassword"
   publicly_accessible  = false
-  skip_final_snapshot  = true
+  
+# Enable encryption for RDS
+  storage_encrypted = true
+  kms_key_id        = "aws/kms"  # specify a custom KMS key if desired
+
+  # Enable backup retention
+  backup_retention_period = 7
+}
+
+# EC2 Instance with IAM Role
+resource "aws_instance" "opensupports" {
+  ami           = "ami-0866a3c8686eaeeba"
+  instance_type = "t3.micro"
+  key_name      = "opensupportkeypair"
+
   vpc_security_group_ids = [aws_security_group.web_sg.id]
-  db_subnet_group_name   = module.vpc.database_subnets
+  subnet_id              = module.vpc.public_subnets[0]
+
+  iam_instance_profile   = aws_iam_instance_profile.ec2_role.name
+  associate_public_ip_address = true
+
+  tags = {
+    Name = "opensupports-instance"
+  }
 }
