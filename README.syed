@@ -19,15 +19,13 @@ Best Practices Implemented
 Cost Optimization Recommendations
 How to Promote Application Across Environments
 Project Structure
-bash
-Copy code
 opensupports/
 ├── terraform/
 │   ├── main.tf        # Terraform configuration for infrastructure
 │   ├── variables.tf   # Parameterized variables
 │   ├── outputs.tf     # Outputs from Terraform resources
 ├── Jenkinsfile        # Jenkins pipeline configuration
-├── README.md          # Project documentation
+├── README.syed          # Project documentation
 Prerequisites
 AWS CLI installed and configured with access keys and a default region.
 Terraform installed on the machine.
@@ -45,26 +43,21 @@ Setup Instructions
 Step 1: Clone Repository
 git clone https://github.com/syedAWS123UK/opensupports.git
 cd opensupports
+
 Step 2: Configure Terraform
 Navigate to the terraform subdirectory:
-
 cd terraform
 terraform init
 Update the following placeholders in main.tf:
-
 opensupports:  S3 bucket name.
-ami-ami-0866a3c8686eaeeba: valid AMI.
+ami-0866a3c8686eaeeba: Valid AMI
 opensupportkeypair: SSH key pair name.
-Set variables (if using variables.tf):
-
-bash
-Copy code
 terraform plan -var="key=value"
+
 Step 3: Apply Terraform
 Run the following command to create the infrastructure:
-
-
 terraform apply
+
 Step 4: Configure Jenkins Pipeline
 Access Jenkins using the 18.206.223.137:8080 Jenkins EC2 instance.
 
@@ -76,9 +69,10 @@ Pipeline: AWS Steps
 Create a new pipeline job and use the Jenkinsfile from the repository.
 Update credentials and repository URLs in the pipeline as needed.
 Trigger the pipeline to deploy the OpenSupports application.
-Best Practices Implemented
+
 IAM Roles with Least Privilege:
 The EC2 instances use an IAM role with restricted permissions to access only required S3 and RDS resources.
+
 Encryption:
 S3 buckets and RDS instances are encrypted to protect data at rest.
 Versioning:
