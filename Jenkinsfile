@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         AWS_DEFAULT_REGION = 'us-east-1'
-        S3_BUCKET = 'bucket-name'
+        S3_BUCKET = 'opensupports'
         EC2_INSTANCE_ID = 'i-09d6850b97fe35d6e'
     }
 
