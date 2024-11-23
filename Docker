@@ -1,0 +1,7 @@
+sudo apt update
+sudo apt install -y docker.io
+sudo systemctl start docker
+sudo systemctl enable docker
+
+docker pull opensupports/opensupports:latest
+docker run -d -p 80:80 opensupports/opensupports:latest
