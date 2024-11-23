@@ -4,5 +4,5 @@ variable "region" {
 }
 
 variable "bucket_name" {
-  description = "opensupport"
+  description = "opensupports"
 }
